@@ -10,7 +10,7 @@
 <body>
     
 <?php
-
+    //conexion a base de datos
     $conexion = new mysqli('localhost','dwes','abc123','dwes');
     $error = $conexion->connect_errno;
 
@@ -18,8 +18,9 @@
         echo '<p> Error '.$error.' conectando a la base de datos: '.$conexion->connect_error.'</p>';
         
     }else{
-        
+        //consulta de actualizacion
         $update = $conexion->query("UPDATE stock SET unidades=1 WHERE tienda=1");
+        //consulta de insercion
         $insert = $conexion->query("INSERT INTO stock (producto, tienda, unidades) VALUES ('3DSNG', 3, 1)");
         
         if($update){
