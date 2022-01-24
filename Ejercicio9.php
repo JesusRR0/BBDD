@@ -19,17 +19,17 @@
         
     }else{
         
-        $update = $conexion->query("UPDATE tienda SET unidades=1 WHERE tienda=1");
-        $insert = $conexion->query("INSERT INTO tienda(producto, tienda, unidades)VALUES('televisor', 3, 1)");
+        $update = $conexion->query("UPDATE stock SET unidades=1 WHERE tienda=1");
+        $insert = $conexion->query("INSERT INTO stock (producto, tienda, unidades) VALUES ('3DSNG', 3, 1)");
         
         if($update){
-            echo '<p> Se han actualizado '.$conexion->affected_row_update.'</p>';
+            echo '<p> Se han actualizado '.$conexion->affected_rows .' filas </p>';
         }else{
             echo 'error al actualizar <br> ';
         }
 
         if($insert){
-            echo '<p> Se han insertado '.$conexion->affected_row_insert.'</p>';
+            echo '<p> Se han insertado '.$conexion->affected_rows.'</p>';
         }else{
             echo 'error al borrar';
         }
