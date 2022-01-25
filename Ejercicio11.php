@@ -37,6 +37,7 @@
                 
                 
                 echo '</select>';
+
             }
         ?>
         <input type="submit" value="Enviar Datos">
@@ -49,28 +50,43 @@
     <div id="contenido">
         <h2>Contenido</h2>
         <?php 
-        
+
         $stock = $conexion->query("SELECT producto, tienda, unidades FROM stock");
         $stockF = $stock->fetch_object();
         $tienda = $conexion->query("SELECT cod, nombre FROM tienda");
         $tiendaF = $tienda->fetch_object();
         
         while($stockF != null ){
-                
-            if($select == $stockF->producto){
-                echo ' Quedan '.$stockF->unidades.' con codigo: '.$select;
-            }
+
+            // var_dump($select);
+            // var_dump($stockF->producto);
             
-            while($tiendaF != null){
-                if($stockF->tienda == $tiendaF->cod){
-                    echo ' Pertenece a la tienda: '.$tiendaF->nombre."<br>";
-                }
-                $tiendaF = $tienda->fetch_object();
-            }
+            
+             if($select == $stockF->producto){
+                 echo ' Quedan '.$stockF->unidades.' con codigo: '.$select;
+                
+                //  var_dump($stockF->tienda);
+                //  echo '<br>';
+                //  var_dump($tiendaF->cod);
+
+                    
+                while($tiendaF != null) {
+                    if($stockF->tienda == $tiendaF->cod){
+                        echo ' en la tienda '.$tiendaF->nombre."<br>";
+                    }
+                    $tiendaF = $tienda->fetch_object();
+                echo '<br>';    
+                var_dump($stockF->tienda);
+                echo '&nbsp';
+                var_dump($tiendaF->cod);
+                echo '<br>';
+                }               
+             }
+            
+            
+            
             $stockF = $stock->fetch_object();
         }
-        
-
 
         ?>
     </div>
