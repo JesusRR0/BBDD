@@ -50,38 +50,26 @@
     <div id="contenido">
         <h2>Contenido</h2>
         <?php 
-        
-        $stock = $conexion->query("SELECT producto, tienda, unidades FROM stock");
-        $stockF = $stock->fetch_object();
 
-        $tienda = $conexion->query("SELECT cod, nombre FROM tienda");
-        $tiendaF = $tienda->fetch_object();
-        
-        while($stockF != null ){
-            
-            if($select == $stockF->producto){
-                
-                echo ' Quedan '.$stockF->unidades.' con codigo: '.$select;
-                
-                while($tiendaF != null){
-                    if($stockF->tienda == $tiendaF->cod){
-                        echo ' en la tienda '.$tiendaF->nombre."<br>";
-                    }
-                    $tiendaF = $tienda->fetch_object();
+        ini_set('display_errors','1');
+        error_reporting(E_ALL);
 
-                }               
-            }
+        $consulta = $conexion->query("SELECT t.nombre, p.nombre_corto, s.unidades FROM tienda t 
+        JOIN stock s ON t.cod=s.tienda JOIN producto p ON p.cod=s.producto WHERE s.producto='".$select."';");
+
+        $consultaF = $consulta->fetch_object();
+
+        while($consultaF !=null){
             
-            $stockF = $stock->fetch_object();
+            echo 'Quedan '.$consultaF->unidades.' del producto '.$consultaF->nombre_corto.' de la tienda '.$consultaF->nombre."<br>";
+
+            $consultaF = $consulta->fetch_object();
         }
+
         
         $conexion->close();
         ?>
     </div>
 
-    <div id="pie">
-        
-    </div>
-    
 </body>
 </html>
